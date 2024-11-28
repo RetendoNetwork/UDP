@@ -15,3 +15,8 @@ class UDPConnection:
 
     def close(self):
         self.socket.close()
+
+    def resolve_udp_addr(self, host: str, port: int) -> tuple:
+        ip_addr = socket.gethostbyname(host)
+        udp_addr = (ip_addr, port)
+        return udp_addr
