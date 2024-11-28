@@ -20,3 +20,20 @@ class UDPConnection:
         ip_addr = socket.gethostbyname(host)
         udp_addr = (ip_addr, port)
         return udp_addr
+
+    def listen_udp(host, port, buffer_size=1024):
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        
+        sock.bind((host, port))
+        print(f"Listening on {host}:{port}")
+        
+        while True:
+            data, addr = sock.recvfrom(buffer_size)
+            print(f"message sended of {addr}: {data.decode()}")
+            
+            sock.sendto(f"Response of {host}:{port}".encode(), addr)
+    
+    except Exception as e:
+        print(f"Error: {e}")
+    finally:
+        sock.close()
